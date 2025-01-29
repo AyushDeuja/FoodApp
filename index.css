@@ -27,6 +27,10 @@
   cursor: pointer;
 } 
 
+.body{
+  padding: 0px 40px;
+}
+
 .restro-card{
   margin: 2px;
   padding: 5px;
@@ -54,17 +58,27 @@
   cursor: pointer;
 }
 
-.shimmer-container{
-  display: flex;
-  flex-wrap: wrap;
+.shimmer-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
-.shimmer-card{
-  height: 400px;
-  width: 200px;
-  margin: 20px;
-  background-color: gray;
+.shimmer-class {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+  height: 150px;
+  border-radius: 10px;
 }
+
+@keyframes shimmer {
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 
 .filter{
   /* margin: 10px; */
@@ -75,3 +89,11 @@
   margin: 10px;
   
 }
+
+.error{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

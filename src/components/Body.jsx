@@ -1,29 +1,46 @@
-import  { useState } from "react";
-import RestauruntCard from "./RestaurantCard";
-import resList from "../utils/mockData";
+import { useState, useEffect } from "react";
+import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
-  const [filteredRestaurants, setFilterRestaurant] = useState(resList);
-
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
-  // const fetchData = async () => {
-  //   const data = await fetch(
-  //     "https://media-assets.swiggy.com/MERCHANDISING_BANNERS/LOTTIES/MERCH/2024/7/5/b02bf8d8-fee5-42c4-9984-e500d19b6471_CNP.json"
-  //   );
-  //   const json = await data.json();
-  //   console.log(json);
-  // };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const data = await fetch(
+        `https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&collection=83667`
+      );
+      const json = await data.json();
+      const restaurants =
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      setListOfRestaurants(restaurants);
+      setFilteredRestaurants(restaurants); // Corrected this line
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleSearch = () => {
+    const filteredList = listOfRestaurants.filter((res) =>
+      res.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurants(filteredList);
+  };
+
+  const filterTopRated = () => {
+    const topRatedList = listOfRestaurants.filter((res) => res.info.avgRating > 4);
+    setFilteredRestaurants(topRatedList);
+  };
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-
     <div className="body">
       <div className="filter">
         <div className="search">
@@ -31,37 +48,17 @@ const Body = () => {
             type="text"
             className="search-box"
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
+            onChange={(e) => setSearchText(e.target.value)}
           />
-          <button
-            onClick={() => {
-              //Filter the restroCard and update the UI
-              const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setFilterRestaurant(filteredRestaurant);
-            }}
-          >
-            Search
-          </button>
+          <button onClick={handleSearch}>Search</button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = listOfRestaurants.filter(
-              (res) => res.data.avgRating > 4
-            );
-            setListOfRestaurants(filteredList);
-          }}
-        >
+        <button className="filter-btn" onClick={filterTopRated}>
           Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
         {filteredRestaurants.map((restaurant) => (
-          <RestauruntCard key={restaurant.data.id} resData={restaurant} />
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
     </div>
