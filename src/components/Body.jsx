@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -18,9 +19,10 @@ const Body = () => {
       );
       const json = await data.json();
       const restaurants =
-        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || [];
       setListOfRestaurants(restaurants);
-      setFilteredRestaurants(restaurants); // Corrected this line
+      setFilteredRestaurants(restaurants);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,7 +36,9 @@ const Body = () => {
   };
 
   const filterTopRated = () => {
-    const topRatedList = listOfRestaurants.filter((res) => res.info.avgRating > 4);
+    const topRatedList = listOfRestaurants.filter(
+      (res) => res.info.avgRating > 4.2
+    );
     setFilteredRestaurants(topRatedList);
   };
 
@@ -58,7 +62,13 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+          <Link
+          style={{textDecoration: "none", color: "black"}}
+            key={restaurant.info.id}
+            to={"/restaurants/" + restaurant.info.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>

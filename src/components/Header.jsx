@@ -14,15 +14,15 @@ export default function Header() {
         <img className="logo" src={LOGO_URL} />
       </div>
       <div className="nav-items">
-        <ul>
+        <ul >
           <li>
-            <Link to={"/"}>Home</Link>
+            <Link style={{textDecoration: "none", color: "black"}} to={"/"}>Home</Link>
           </li> 
           <li>
-            <Link to={"/about"}>About Us</Link>
+            <Link style={{textDecoration: "none", color: "black"}} to={"/about"}>About Us</Link>
           </li>
           <li>
-            <Link to={"/contact"}>Contact Us</Link>
+            <Link style={{textDecoration: "none", color: "black"}} to={"/contact"}>Contact Us</Link>
           </li>
           <li>Cart</li>
           <button
