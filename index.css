@@ -35,7 +35,7 @@
   margin: 2px;
   padding: 5px;
   width: 200px;
-  /* height: 320px; */
+  height: 280px;
 }
 
 .restro-card:hover{
@@ -97,3 +97,8 @@
   align-items: center;
 }
 
+.user-card{
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+}
