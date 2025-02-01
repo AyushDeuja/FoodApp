@@ -4,25 +4,28 @@ import React from "react";
 class About extends React.Component {
   constructor(props) {
     super(props);
-    console.log("Parent Constructor");
+    //console.log("Parent Constructor");
   }
   componentDidMount(){
-    console.log("Parent component did mount")
+    //console.log("Parent component did mount")
+    //API CALL is done here in class based react
+
   }
   render() {
-    console.log("Parent Render");
+   // console.log("Parent Render");
     return (
       <div className="about-container">
         <h1>This is about page....</h1>
-        <User
+        {/* <User
           name={"Ayush Deuja(Functional Component)"}
           location={"Biratnagar(Function)"}
-        />
+        /> */}
 
         <UserClass
           name={"Ayush Deuja(Class Component)"}
-          location={"Biratnagar(Class)"}
+          location={"Nepal(Class)"}
         />
+      
       </div>
     );
   }

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const User = (props) => {
   const [count1] = useState(0);
   const [count2] = useState(1);
+
+  useEffect(() => {
+  //Api call
+  }, []);
+
+
   return (
     <div className="user-card">
       <h1>Count = {count1} (Function)</h1>
