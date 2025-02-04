@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { CARD_API } from "../utils/constants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -41,25 +42,40 @@ const Body = () => {
     setFilteredRestaurants(topRatedList);
   };
 
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false)
+    return <h1>You are offline, Please check your internet connection</h1>;
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex">
+        <div className="m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black rounded-lg"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button
+            onClick={handleSearch}
+            className="px-4  mx-4 bg-green-200 rounded-sm "
+          >
+            Search
+          </button>
         </div>
-        <button className="filter-btn" onClick={filterTopRated}>
-          Top Rated Restaurants
-        </button>
+        <div className="m-4 p-4 flex items-center">
+          <button
+            onClick={filterTopRated}
+            className="px-4  mx-4 bg-gray-200 rounded-sm "
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+        <div className="flex flex-wrap" >
         {filteredRestaurants.map((restaurant) => (
           <Link
             style={{ textDecoration: "none", color: "black" }}

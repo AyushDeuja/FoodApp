@@ -10,7 +10,7 @@ const User = (props) => {
 
 
   return (
-    <div className="user-card">
+    <div className="m-4 p-4 bg-gray-50 rounded-lg">
       <h1>Count = {count1} (Function)</h1>
       <h1>Count = {count2} (Function)</h1>
       <h2>Name: {props.name}</h2>
