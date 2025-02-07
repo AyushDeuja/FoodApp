@@ -11,7 +11,6 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const RestaurantCardOpen = withOpen(RestaurantCard);
 
-  console.log("Body Rendered", listOfRestaurants);
 
   useEffect(() => {
     fetchData();
