@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import RestaurantCard, { withOpen } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { CARD_API } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const RestaurantCardOpen = withOpen(RestaurantCard);
-
 
   useEffect(() => {
     fetchData();
@@ -49,6 +49,8 @@ const Body = () => {
   if (onlineStatus === false)
     return <h1>You are offline, Please check your internet connection</h1>;
 
+  const { loggedInUser, setUserName } = useContext(UserContext);
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -57,7 +59,7 @@ const Body = () => {
         <div className="m-4 p-4">
           <input
             type="text"
-            className="border border-solid border-black rounded-lg"
+            className="border  border-black rounded-lg"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
@@ -75,6 +77,14 @@ const Body = () => {
           >
             Top Rated Restaurants
           </button>
+        </div>
+        <div className="m-4 p-4 flex items-center">
+          <label>UserName: </label>
+          <input
+            className="border border-black px-2 rounded-lg"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
         </div>
       </div>
       <div className="flex flex-wrap">

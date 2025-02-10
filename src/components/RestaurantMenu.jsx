@@ -9,7 +9,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
   const [showIndex, setShowIndex] = useState(null);
-
+  const dummy = "Dummy Data";
   // useEffect(() => {
   //   fetchMenu();
   // }, []);
