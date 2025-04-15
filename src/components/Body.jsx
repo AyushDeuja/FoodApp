@@ -55,7 +55,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="flex">
+      <div className="flex justify-center">
         <div className="m-4 p-4">
           <input
             type="text"
@@ -87,7 +87,7 @@ const Body = () => {
           />
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {filteredRestaurants.map((restaurant) => (
           <Link
             style={{ textDecoration: "none", color: "black" }}
