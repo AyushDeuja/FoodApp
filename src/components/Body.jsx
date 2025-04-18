@@ -56,7 +56,7 @@ const Body = () => {
   ) : (
     <div className="body">
       <div className="flex justify-center">
-        <div className="m-4 p-4">
+        <div className="m-4 ">
           <input
             type="text"
             className="border  border-black rounded-lg"
